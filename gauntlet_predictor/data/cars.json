@@ -1,0 +1,72 @@
+[
+  {
+    "id": "bugatti_chiron",
+    "name": "Bugatti Chiron",
+    "rank": 1,
+    "car_class": "S",
+    "top_speed": 491,
+    "acceleration": 46,
+    "handling": 36,
+    "nitro": 47,
+    "n_top_speed": 1.0,
+    "n_acceleration": 0.7931034482758621,
+    "n_handling": 0.5538461538461539,
+    "n_nitro": 0.7833333333333333
+  },
+  {
+    "id": "ferrari_f40",
+    "name": "Ferrari F40",
+    "rank": 2,
+    "car_class": "S",
+    "top_speed": 440,
+    "acceleration": 52,
+    "handling": 44,
+    "nitro": 48,
+    "n_top_speed": 0.8961303462321792,
+    "n_acceleration": 0.896551724137931,
+    "n_handling": 0.676923076923077,
+    "n_nitro": 0.8
+  },
+  {
+    "id": "mclaren_p1",
+    "name": "McLaren P1",
+    "rank": 3,
+    "car_class": "S",
+    "top_speed": 380,
+    "acceleration": 58,
+    "handling": 58,
+    "nitro": 55,
+    "n_top_speed": 0.7739307535641547,
+    "n_acceleration": 1.0,
+    "n_handling": 0.8923076923076924,
+    "n_nitro": 0.9166666666666666
+  },
+  {
+    "id": "lamborghini_huracan",
+    "name": "Lamborghini Huracan",
+    "rank": 4,
+    "car_class": "A",
+    "top_speed": 360,
+    "acceleration": 55,
+    "handling": 50,
+    "nitro": 60,
+    "n_top_speed": 0.7331975560081466,
+    "n_acceleration": 0.9482758620689655,
+    "n_handling": 0.7692307692307693,
+    "n_nitro": 1.0
+  },
+  {
+    "id": "porsche_911_gt3",
+    "name": "Porsche 911 GT3",
+    "rank": 5,
+    "car_class": "A",
+    "top_speed": 320,
+    "acceleration": 48,
+    "handling": 65,
+    "nitro": 45,
+    "n_top_speed": 0.6517311608961304,
+    "n_acceleration": 0.8275862068965517,
+    "n_handling": 1.0,
+    "n_nitro": 0.75
+  }
+]

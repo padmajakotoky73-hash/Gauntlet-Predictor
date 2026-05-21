@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+.env
+
+# Next.js / Node
+ui/node_modules/
+ui/.next/
+ui/out/
+ui/.env.local
+ui/.env*.local
+ui/npm-debug.log*
+ui/yarn-debug.log*
+ui/yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Test / coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Data (keep JSON seeds, exclude live runtime data)
+gauntlet_predictor/data/race_logs.jsonl
+
+# Claude Code session data
+.claude/
