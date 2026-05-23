@@ -35,6 +35,13 @@ def _make_id(name: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", name.lower()).strip("_")
 
 
+def _car_dict(car: Car) -> dict:
+    """Return asdict(car) with an added display_name key (= car.name)."""
+    d = asdict(car)
+    d["display_name"] = car.name
+    return d
+
+
 # ── Pydantic request models ──────────────────────────────────────────────────
 
 class CarInput(BaseModel):
@@ -74,7 +81,7 @@ def get_tracks():
 
 @app.get("/cars")
 def get_cars():
-    return [asdict(c) for c in load_cars()]
+    return [_car_dict(c) for c in load_cars()]
 
 
 @app.post("/cars", status_code=201)
@@ -94,7 +101,7 @@ def add_car(data: CarInput):
     cars.append(car)
     cars = normalize_garage(cars)
     save_cars(cars)
-    return asdict(next(c for c in cars if c.id == car_id))
+    return _car_dict(next(c for c in cars if c.id == car_id))
 
 
 @app.put("/cars/{car_id}")
@@ -113,7 +120,7 @@ def update_car(car_id: str, data: CarUpdate):
         match.nitro = data.nitro
     cars = normalize_garage(cars)
     save_cars(cars)
-    return asdict(match)
+    return _car_dict(match)
 
 
 @app.delete("/cars/{car_id}")

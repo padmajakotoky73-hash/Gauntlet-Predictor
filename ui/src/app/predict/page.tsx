@@ -93,9 +93,9 @@ export default function PredictPage() {
                     <SelectValue placeholder="Select a car…" />
                   </SelectTrigger>
                   <SelectContent>
-                    {cars.map(c => (
+                    {[...cars].sort((a, b) => a.display_name.localeCompare(b.display_name)).map(c => (
                       <SelectItem key={c.id} value={c.id}>
-                        <span className="font-medium">{c.name}</span>
+                        <span className="font-medium">{c.display_name}</span>
                         <span className="ml-2 text-muted-foreground text-xs">#{c.rank} · {c.car_class}</span>
                       </SelectItem>
                     ))}
@@ -110,7 +110,7 @@ export default function PredictPage() {
                     <SelectValue placeholder="Select a track…" />
                   </SelectTrigger>
                   <SelectContent>
-                    {tracks.map(t => (
+                    {[...tracks].sort((a, b) => a.display_name.localeCompare(b.display_name)).map(t => (
                       <SelectItem key={t.id} value={t.id}>
                         {t.display_name}
                       </SelectItem>

@@ -21,6 +21,7 @@ export interface Track {
 export interface Car {
   id: string;
   name: string;
+  display_name: string;
   rank: number;
   car_class: string;
   top_speed: number;

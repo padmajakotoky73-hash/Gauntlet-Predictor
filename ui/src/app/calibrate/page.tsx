@@ -127,7 +127,9 @@ export default function CalibratePage() {
                   <Select value={carId} onValueChange={v => setCarId(v ?? "")}>
                     <SelectTrigger><SelectValue placeholder="Select car…" /></SelectTrigger>
                     <SelectContent>
-                      {cars.map(c => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}
+                      {[...cars].sort((a, b) => a.display_name.localeCompare(b.display_name)).map(c => (
+                        <SelectItem key={c.id} value={c.id}>{c.display_name}</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>
@@ -137,7 +139,9 @@ export default function CalibratePage() {
                   <Select value={trackId} onValueChange={v => setTrackId(v ?? "")}>
                     <SelectTrigger><SelectValue placeholder="Select track…" /></SelectTrigger>
                     <SelectContent>
-                      {tracks.map(t => <SelectItem key={t.id} value={t.id}>{t.display_name}</SelectItem>)}
+                      {[...tracks].sort((a, b) => a.display_name.localeCompare(b.display_name)).map(t => (
+                        <SelectItem key={t.id} value={t.id}>{t.display_name}</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>

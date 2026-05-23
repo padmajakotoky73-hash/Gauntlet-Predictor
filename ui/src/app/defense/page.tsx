@@ -83,7 +83,7 @@ export default function DefensePage() {
                       <SelectValue placeholder={`Track ${i + 1}…`} />
                     </SelectTrigger>
                     <SelectContent>
-                      {tracks.map(t => (
+                      {[...tracks].sort((a, b) => a.display_name.localeCompare(b.display_name)).map(t => (
                         <SelectItem key={t.id} value={t.id}>
                           {t.display_name}
                         </SelectItem>
