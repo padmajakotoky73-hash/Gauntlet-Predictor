@@ -2,46 +2,38 @@
 
 import { useEffect, useState } from "react";
 import { api, Track } from "@/lib/api";
+import { STAT_KEYS, STAT_LABELS, STAT_COLORS } from "@/lib/stats";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Search } from "lucide-react";
 
 const PROFILE_LABEL: Record<string, string> = {
-  pure_straight:    "Straight",
+  pure_straight:      "Straight",
   highway_with_turns: "Highway",
-  mixed_circuit:    "Mixed",
-  twisty_city:      "Twisty City",
-  twisty_off_road:  "Twisty Off-road",
-  jump_heavy:       "Jump Heavy",
-  tunnel_tight:     "Tunnel",
+  mixed_circuit:      "Mixed",
+  twisty_city:        "Twisty City",
+  twisty_off_road:    "Twisty Off-road",
+  jump_heavy:         "Jump Heavy",
+  tunnel_tight:       "Tunnel",
 };
 
 const PROFILE_COLOR: Record<string, string> = {
-  pure_straight:    "bg-blue-500/20 text-blue-300",
+  pure_straight:      "bg-blue-500/20 text-blue-300",
   highway_with_turns: "bg-cyan-500/20 text-cyan-300",
-  mixed_circuit:    "bg-violet-500/20 text-violet-300",
-  twisty_city:      "bg-orange-500/20 text-orange-300",
-  twisty_off_road:  "bg-amber-500/20 text-amber-300",
-  jump_heavy:       "bg-red-500/20 text-red-300",
-  tunnel_tight:     "bg-emerald-500/20 text-emerald-300",
+  mixed_circuit:      "bg-violet-500/20 text-violet-300",
+  twisty_city:        "bg-orange-500/20 text-orange-300",
+  twisty_off_road:    "bg-amber-500/20 text-amber-300",
+  jump_heavy:         "bg-red-500/20 text-red-300",
+  tunnel_tight:       "bg-emerald-500/20 text-emerald-300",
 };
 
-function StatBar({ label, value }: { label: string; value: number }) {
-  const pct = Math.round(value * 100);
-  const color =
-    pct >= 35 ? "bg-primary" : pct >= 25 ? "bg-blue-500" : "bg-muted-foreground/40";
-  return (
-    <div className="flex items-center gap-2 text-xs">
-      <span className="w-8 shrink-0 text-muted-foreground">{label}</span>
-      <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
-        <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
-      </div>
-      <span className="w-8 text-right font-mono">{pct}%</span>
-    </div>
-  );
-}
+const TRACK_WEIGHT: Record<string, (t: Track) => number> = {
+  top_speed:    t => t.w_top_speed,
+  acceleration: t => t.w_acceleration,
+  handling:     t => t.w_handling,
+  nitro:        t => t.w_nitro,
+};
 
 export default function TracksPage() {
   const [tracks, setTracks] = useState<Track[]>([]);
@@ -104,16 +96,31 @@ export default function TracksPage() {
                   {track.sample_count > 0 && (
                     <>
                       <span className="text-xs text-muted-foreground">·</span>
-                      <span className="text-xs text-muted-foreground">{track.sample_count} sample{track.sample_count !== 1 ? "s" : ""}</span>
+                      <span className="text-xs text-muted-foreground">
+                        {track.sample_count} sample{track.sample_count !== 1 ? "s" : ""}
+                      </span>
                     </>
                   )}
                 </div>
               </CardHeader>
-              <CardContent className="flex-1 space-y-1.5 pt-0">
-                <StatBar label="TS" value={track.w_top_speed} />
-                <StatBar label="Ac" value={track.w_acceleration} />
-                <StatBar label="Ha" value={track.w_handling} />
-                <StatBar label="Ni" value={track.w_nitro} />
+              <CardContent className="flex-1 space-y-2 pt-0">
+                {STAT_KEYS.map(k => {
+                  const w = TRACK_WEIGHT[k](track);
+                  return (
+                    <div key={k} className="grid grid-cols-[110px_1fr_auto] items-center gap-3">
+                      <span className={`text-sm ${STAT_COLORS[k].text}`}>{STAT_LABELS[k]}</span>
+                      <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
+                        <div
+                          className={`h-full ${STAT_COLORS[k].bar}`}
+                          style={{ width: `${w * 100}%` }}
+                        />
+                      </div>
+                      <span className="font-mono text-xs text-zinc-400 tabular-nums w-12 text-right">
+                        {(w * 100).toFixed(0)}%
+                      </span>
+                    </div>
+                  );
+                })}
               </CardContent>
             </Card>
           ))}
