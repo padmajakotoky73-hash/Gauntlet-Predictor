@@ -22,6 +22,7 @@ export interface Car {
   id: string;
   name: string;
   display_name: string;
+  overall_score: number;
   rank: number;
   car_class: string;
   top_speed: number;

@@ -36,9 +36,12 @@ def _make_id(name: str) -> str:
 
 
 def _car_dict(car: Car) -> dict:
-    """Return asdict(car) with an added display_name key (= car.name)."""
+    """Return asdict(car) with added display_name and overall_score keys."""
     d = asdict(car)
     d["display_name"] = car.name
+    d["overall_score"] = (
+        car.n_top_speed + car.n_acceleration + car.n_handling + car.n_nitro
+    ) / 4
     return d
 
 
