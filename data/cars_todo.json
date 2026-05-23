@@ -1,0 +1,388 @@
+[
+  {
+    "name": "Lotus Emeya",
+    "slug": "lotus_emeya",
+    "reason": "no_url"
+  },
+  {
+    "name": "Toyota GR Supra 2023",
+    "slug": "toyota_gr_supra_2023",
+    "reason": "no_url"
+  },
+  {
+    "name": "Hyundai Ioniq 5 N",
+    "slug": "hyundai_ioniq_5_n",
+    "reason": "no_url"
+  },
+  {
+    "name": "Toyota GR Supra Racing Concept",
+    "slug": "toyota_gr_supra_racing_concept",
+    "reason": "no_url"
+  },
+  {
+    "name": "DS Automobiles DS E-Tense Performance",
+    "slug": "ds_automobiles_ds_e_tense_performance",
+    "reason": "no_url"
+  },
+  {
+    "name": "Lamborghini Huracan Sterrato",
+    "slug": "lamborghini_huracan_sterrato",
+    "reason": "no_url"
+  },
+  {
+    "name": "Kimera Evo37",
+    "slug": "kimera_evo37",
+    "url": "https://www.mei-a9.info/cars?car=274",
+    "reason": "mei_a9_unsupported"
+  },
+  {
+    "name": "Jaguar XCR-S GT",
+    "slug": "jaguar_xcr_s_gt",
+    "reason": "no_url"
+  },
+  {
+    "name": "Citroen DS Survolt",
+    "slug": "citroen_ds_survolt",
+    "reason": "no_url"
+  },
+  {
+    "name": "Porsche 911 50 Years Porsche Design",
+    "slug": "porsche_911_50_years_porsche_design",
+    "reason": "no_url"
+  },
+  {
+    "name": "Jaguar XJR-15",
+    "slug": "jaguar_xjr_15",
+    "reason": "no_url"
+  },
+  {
+    "name": "Dodge Charger SRT Hellcat Redeye Widebody",
+    "slug": "dodge_charger_srt_hellcat_redeye_widebody",
+    "reason": "no_url"
+  },
+  {
+    "name": "Porsche 911 GT3 R Rennsport",
+    "slug": "porsche_911_gt3_r_rennsport",
+    "reason": "no_url"
+  },
+  {
+    "name": "Praga Bohema",
+    "slug": "praga_bohema",
+    "reason": "no_url"
+  },
+  {
+    "name": "Lexus LFA Nurburgring Package",
+    "slug": "lexus_lfa_nurburgring_package",
+    "reason": "no_url"
+  },
+  {
+    "name": "Mercedes-Benz C 63 AMG DTM",
+    "slug": "mercedes_benz_c_63_amg_dtm",
+    "reason": "no_url"
+  },
+  {
+    "name": "Ares S1",
+    "slug": "ares_s1",
+    "reason": "no_url"
+  },
+  {
+    "name": "Aston Martin DBS 770 Ultimate",
+    "slug": "aston_martin_dbs_770_ultimate",
+    "url": "https://asphalt.fandom.com/wiki/Aston_Martin_DBS_770_Ultimate",
+    "reason": "scrape_failed"
+  },
+  {
+    "name": "Nissan Z Gt4",
+    "slug": "nissan_z_gt4",
+    "url": "https://asphalt.fandom.com/wiki/Nissan_Z_GT4",
+    "reason": "scrape_failed"
+  },
+  {
+    "name": "Porsche 911 Turbo 50 Years",
+    "slug": "porsche_911_turbo_50_years",
+    "url": "https://asphalt.fandom.com/wiki/Porsche_911_Turbo_50_Years",
+    "reason": "scrape_failed"
+  },
+  {
+    "name": "LegoTechnic Chevrolet Corvette Stingray",
+    "slug": "legotechnic_chevrolet_corvette_stingray",
+    "url": "https://www.mei-a9.info/cars?car=279",
+    "reason": "mei_a9_unsupported"
+  },
+  {
+    "name": "Formula E Gen3 Evo Championship Edition",
+    "slug": "formula_e_gen3_evo_championship_edition",
+    "reason": "no_url"
+  },
+  {
+    "name": "Lego Technic BMW M4 GT3 Evo",
+    "slug": "lego_technic_bmw_m4_gt3_evo",
+    "reason": "no_url"
+  },
+  {
+    "name": "Ferrari F12 Berlinetta",
+    "slug": "ferrari_f12_berlinetta",
+    "url": "https://asphalt.fandom.com/wiki/Ferrari_F12berlinetta",
+    "reason": "scrape_failed"
+  },
+  {
+    "name": "Mclaren 750S Coupe",
+    "slug": "mclaren_750s_coupe",
+    "reason": "no_url"
+  },
+  {
+    "name": "Porsche 917 Living Legend",
+    "slug": "porsche_917_living_legend",
+    "reason": "no_url"
+  },
+  {
+    "name": "BMW M Hybrid V8",
+    "slug": "bmw_m_hybrid_v8",
+    "url": "https://asphalt.fandom.com/wiki/BMW_M_Hybrid_V8",
+    "reason": "scrape_failed"
+  },
+  {
+    "name": "Toyota GR Super Sport Concept",
+    "slug": "toyota_gr_super_sport_concept",
+    "url": "https://www.mei-a9.info/cars?car=284",
+    "reason": "mei_a9_unsupported"
+  },
+  {
+    "name": "FV Frangivento GT65",
+    "slug": "fv_frangivento_gt65",
+    "url": "https://www.mei-a9.info/cars?car=275",
+    "reason": "mei_a9_unsupported"
+  },
+  {
+    "name": "Lego Technic Lamborghini Revuelto",
+    "slug": "lego_technic_lamborghini_revuelto",
+    "reason": "no_url"
+  },
+  {
+    "name": "Ferrari 12 Cilindri",
+    "slug": "ferrari_12_cilindri",
+    "reason": "no_url"
+  },
+  {
+    "name": "Ford GT MK IV",
+    "slug": "ford_gt_mk_iv",
+    "reason": "no_url"
+  },
+  {
+    "name": "Ares Panther",
+    "slug": "ares_panther",
+    "reason": "no_url"
+  },
+  {
+    "name": "Lego Technic Ferrari FXX",
+    "slug": "lego_technic_ferrari_fxx",
+    "reason": "no_url"
+  },
+  {
+    "name": "Pagani Zonda Cinque",
+    "slug": "pagani_zonda_cinque",
+    "reason": "no_url"
+  },
+  {
+    "name": "Pagani Zonda R",
+    "slug": "pagani_zonda_r",
+    "url": "https://asphalt9.info/asphalt9/cars/class-a/pagani-zonda-r/",
+    "reason": "scrape_failed"
+  },
+  {
+    "name": "McLaren Sabre",
+    "slug": "mclaren_sabre",
+    "url": "https://www.mei-a9.info/cars?car=268",
+    "reason": "mei_a9_unsupported"
+  },
+  {
+    "name": "Mercedes-Benz Mercedes-AMG One",
+    "slug": "mercedes_benz_mercedes_amg_one",
+    "reason": "no_url"
+  },
+  {
+    "name": "Porsche 935 Dragonforce Edition",
+    "slug": "porsche_935_dragonforce_edition",
+    "reason": "no_url"
+  },
+  {
+    "name": "Ferrari F8 Tributo",
+    "slug": "ferrari_f8_tributo",
+    "reason": "no_url"
+  },
+  {
+    "name": "Ford Shelby Super Snake",
+    "slug": "ford_shelby_super_snake",
+    "url": "https://www.mei-a9.info/cars?car=269",
+    "reason": "mei_a9_unsupported"
+  },
+  {
+    "name": "Zenvo Aurora Agil",
+    "slug": "zenvo_aurora_agil",
+    "reason": "no_url"
+  },
+  {
+    "name": "Lexus Electrified Sport Concept",
+    "slug": "lexus_electrified_sport_concept",
+    "url": "https://mei-a9.info/cars?car=285",
+    "reason": "mei_a9_unsupported"
+  },
+  {
+    "name": "Ferrari 499P Modificata",
+    "slug": "ferrari_499p_modificata",
+    "url": "https://www.mei-a9.info/cars?car=273",
+    "reason": "mei_a9_unsupported"
+  },
+  {
+    "name": "Automobili Pininfarina B95",
+    "slug": "automobili_pininfarina_b95",
+    "reason": "no_url"
+  },
+  {
+    "name": "Mercedes-Benz Silver Lightning",
+    "slug": "mercedes_benz_silver_lightning",
+    "reason": "no_url"
+  },
+  {
+    "name": "Porsche 919 Street",
+    "slug": "porsche_919_street",
+    "reason": "no_url"
+  },
+  {
+    "name": "Lamborghini Cenetenario",
+    "slug": "lamborghini_cenetenario",
+    "url": "https://asphalt9.info/asphalt9/cars/class-s/vision-1789/",
+    "reason": "scrape_failed"
+  },
+  {
+    "name": "Hyundai N Vision 74",
+    "slug": "hyundai_n_vision_74",
+    "url": "https://mei-a9.info/cars?car=282",
+    "reason": "mei_a9_unsupported"
+  },
+  {
+    "name": "Vision 1789",
+    "slug": "vision_1789",
+    "url": "https://asphalt9.info/asphalt9/cars/class-s/vision-1789/",
+    "reason": "scrape_failed"
+  },
+  {
+    "name": "Pininfarina Teorema",
+    "slug": "pininfarina_teorema",
+    "url": "https://www.mei-a9.info/cars?car=267",
+    "reason": "mei_a9_unsupported"
+  },
+  {
+    "name": "Mercedes-Benz C11",
+    "slug": "mercedes_benz_c11",
+    "reason": "no_url"
+  },
+  {
+    "name": "Nilu27 Nilu",
+    "slug": "nilu27_nilu",
+    "reason": "no_url"
+  },
+  {
+    "name": "Naran Hyper Coupe",
+    "slug": "naran_hyper_coupe",
+    "url": "https://asphalt9.info/asphalt9/cars/class-s/naran-hyper-coupe/",
+    "reason": "scrape_failed"
+  },
+  {
+    "name": "Saleen S7 Twin Turbo",
+    "slug": "saleen_s7_twin_turbo",
+    "reason": "no_url"
+  },
+  {
+    "name": "Ultima RS",
+    "slug": "ultima_rs",
+    "url": "https://asphalt9.info/asphalt9/cars/class-s/ultima-rs/",
+    "reason": "scrape_failed"
+  },
+  {
+    "name": "Lego Technic Bugatti Chiron Pur Sport",
+    "slug": "lego_technic_bugatti_chiron_pur_sport",
+    "reason": "no_url"
+  },
+  {
+    "name": "Tushek TS 900 Racer Pro",
+    "slug": "tushek_ts_900_racer_pro",
+    "url": "https://asphalt9.info/asphalt9/cars/class-s/tushek-ts-900-racer-pro/",
+    "reason": "scrape_failed"
+  },
+  {
+    "name": "SSC Ultimate Aero TT",
+    "slug": "ssc_ultimate_aero_tt",
+    "reason": "no_url"
+  },
+  {
+    "name": "Rimac Nevera Time Attack",
+    "slug": "rimac_nevera_time_attack",
+    "url": "https://www.mei-a9.info/cars?car=265",
+    "reason": "mei_a9_unsupported"
+  },
+  {
+    "name": "Icona Vulcano Spyder",
+    "slug": "icona_vulcano_spyder",
+    "reason": "no_url"
+  },
+  {
+    "name": "Raesr Aglaia",
+    "slug": "raesr_aglaia",
+    "reason": "no_url"
+  },
+  {
+    "name": "HTT Locus Plethore LC750",
+    "slug": "htt_locus_plethore_lc750",
+    "url": "https://www.mei-a9.info/cars?car=278",
+    "reason": "mei_a9_unsupported"
+  },
+  {
+    "name": "SSC Tuatara Striker",
+    "slug": "ssc_tuatara_striker",
+    "url": "https://mei-a9.info/cars?car=286",
+    "reason": "mei_a9_unsupported"
+  },
+  {
+    "name": "Rimac Nevera R",
+    "slug": "rimac_nevera_r",
+    "reason": "no_url"
+  },
+  {
+    "name": "Koenigsegg One:1",
+    "slug": "koenigsegg_one_1",
+    "reason": "no_url"
+  },
+  {
+    "name": "Tushek Aeon E",
+    "slug": "tushek_aeon_e",
+    "url": "https://asphalt.fandom.com/wiki/Tushek_Aeon_E",
+    "reason": "scrape_failed"
+  },
+  {
+    "name": "Ferrante Design Elytron",
+    "slug": "ferrante_design_elytron",
+    "reason": "no_url"
+  },
+  {
+    "name": "Mosler Super GT",
+    "slug": "mosler_super_gt",
+    "reason": "no_url"
+  },
+  {
+    "name": "Koenigsegg Chimera",
+    "slug": "koenigsegg_chimera",
+    "reason": "no_url"
+  },
+  {
+    "name": "Raesr Tartarus",
+    "slug": "raesr_tartarus",
+    "url": "https://www.mei-a9.info/cars?car=272",
+    "reason": "mei_a9_unsupported"
+  },
+  {
+    "name": "Arash Imperium",
+    "slug": "arash_imperium",
+    "reason": "no_url"
+  }
+]
