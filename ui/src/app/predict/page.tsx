@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { api, Car, Track, PredictResult } from "@/lib/api";
+import { STAT_KEYS, STAT_LABELS, STAT_COLORS, StatKey } from "@/lib/stats";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Select,
@@ -14,19 +14,32 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { TrendingUp, Clock, AlertTriangle } from "lucide-react";
-import {
-  RadarChart,
-  Radar,
-  PolarGrid,
-  PolarAngleAxis,
-  ResponsiveContainer,
-} from "recharts";
 
 const CONFIDENCE_BADGE: Record<string, string> = {
   LOW:    "bg-yellow-500/20 text-yellow-300 border-yellow-500/30",
   MEDIUM: "bg-blue-500/20 text-blue-300 border-blue-500/30",
   HIGH:   "bg-green-500/20 text-green-300 border-green-500/30",
 };
+
+function getCarNorm(car: Car, k: StatKey): number {
+  const map: Record<StatKey, number> = {
+    top_speed:    car.n_top_speed,
+    acceleration: car.n_acceleration,
+    handling:     car.n_handling,
+    nitro:        car.n_nitro,
+  };
+  return map[k];
+}
+
+function getTrackW(track: Track, k: StatKey): number {
+  const map: Record<StatKey, number> = {
+    top_speed:    track.w_top_speed,
+    acceleration: track.w_acceleration,
+    handling:     track.w_handling,
+    nitro:        track.w_nitro,
+  };
+  return map[k];
+}
 
 export default function PredictPage() {
   const [cars, setCars] = useState<Car[]>([]);
@@ -59,14 +72,8 @@ export default function PredictPage() {
     }
   };
 
-  const radarData = result
-    ? [
-        { stat: "Top Speed",    value: Math.round(result.stat_contributions.top_speed * 100) },
-        { stat: "Acceleration", value: Math.round(result.stat_contributions.acceleration * 100) },
-        { stat: "Handling",     value: Math.round(result.stat_contributions.handling * 100) },
-        { stat: "Nitro",        value: Math.round(result.stat_contributions.nitro * 100) },
-      ]
-    : [];
+  const selectedCar  = result ? (cars.find(c => c.id === carId)  ?? null) : null;
+  const selectedTrack = result ? (tracks.find(t => t.id === trackId) ?? null) : null;
 
   return (
     <div className="space-y-6 max-w-3xl mx-auto">
@@ -169,27 +176,47 @@ export default function PredictPage() {
             </CardContent>
           </Card>
 
-          {/* Stat contributions radar */}
+          {/* Car vs Track stat bars */}
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Stat Contributions</CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">Car vs Track Demand</CardTitle>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={180}>
-                <RadarChart data={radarData}>
-                  <PolarGrid stroke="hsl(var(--border))" />
-                  <PolarAngleAxis dataKey="stat" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-                  <Radar dataKey="value" stroke="hsl(var(--primary))" fill="hsl(var(--primary))" fillOpacity={0.25} />
-                </RadarChart>
-              </ResponsiveContainer>
-              <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs mt-2">
-                {result && Object.entries(result.stat_contributions).map(([k, v]) => (
-                  <div key={k} className="flex justify-between">
-                    <span className="text-muted-foreground capitalize">{k.replace("_", " ")}</span>
-                    <span className="font-mono">{(v * 100).toFixed(1)}%</span>
-                  </div>
-                ))}
-              </div>
+              {selectedCar && selectedTrack ? (
+                <div className="space-y-3 py-2">
+                  {STAT_KEYS.map(k => {
+                    const carNorm    = getCarNorm(selectedCar, k);   // 0–1
+                    const carValue   = carNorm * 100;                 // 0–100
+                    const trackWeight = getTrackW(selectedTrack, k); // 0–1
+                    const overDelivers = carNorm >= trackWeight;
+                    const c = STAT_COLORS[k];
+                    return (
+                      <div key={k} className="grid grid-cols-[110px_1fr_auto] items-center gap-3">
+                        <span className={`text-sm ${c.text}`}>{STAT_LABELS[k]}</span>
+                        <div className="relative h-6 bg-zinc-800 rounded overflow-hidden">
+                          <div
+                            className={`absolute inset-y-0 left-0 ${c.bar} transition-[width] duration-300`}
+                            style={{ width: `${carValue}%` }}
+                          />
+                          <div
+                            className="absolute inset-y-0 w-px bg-zinc-100"
+                            style={{ left: `${trackWeight * 100}%` }}
+                            title={`Track demand: ${(trackWeight * 100).toFixed(0)}%`}
+                          />
+                        </div>
+                        <span className={`font-mono text-sm tabular-nums w-12 text-right ${overDelivers ? "text-zinc-100" : "text-zinc-500"}`}>
+                          {carValue.toFixed(0)}
+                        </span>
+                      </div>
+                    );
+                  })}
+                  <p className="text-xs text-zinc-500 pt-2 border-t border-zinc-800">
+                    Bar = car stat (0–100). Line = track demand. Bright value = over-delivers on that stat.
+                  </p>
+                </div>
+              ) : (
+                <div className="py-8 text-center text-muted-foreground text-sm">No data</div>
+              )}
             </CardContent>
           </Card>
         </div>
