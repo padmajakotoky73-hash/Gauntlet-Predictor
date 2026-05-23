@@ -216,8 +216,10 @@ def defense(data: DefenseInput):
         assignments.append({
             "track_id": track.id,
             "track_name": track.display_name,
+            "track_display_name": track.display_name,
             "car_id": car.id,
             "car_name": car.name,
+            "car_display_name": car.name,
             "predicted_time": time,
             "ci": ci,
             "confidence": confidence,

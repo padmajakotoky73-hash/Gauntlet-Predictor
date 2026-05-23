@@ -12,14 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Separator } from "@/components/ui/separator";
-import { Shield, Clock, AlertTriangle } from "lucide-react";
-
-const CONFIDENCE_COLOR: Record<string, string> = {
-  LOW:    "text-yellow-400",
-  MEDIUM: "text-blue-400",
-  HIGH:   "text-green-400",
-};
+import { Shield, AlertTriangle, X } from "lucide-react";
 
 const SLOTS = 5;
 
@@ -35,18 +28,33 @@ export default function DefensePage() {
     api.getTracks().then(setTracks).finally(() => setFetching(false));
   }, []);
 
+  const sortedTracks = [...tracks].sort((a, b) => a.display_name.localeCompare(b.display_name));
+
+  // Selected Track objects in slot order (non-empty only)
+  const selectedTracks = selected
+    .filter(id => id !== "")
+    .map(id => tracks.find(t => t.id === id))
+    .filter((t): t is Track => t !== undefined);
+
   const setSlot = (i: number, val: string | null) => {
     setSelected(prev => prev.map((s, idx) => (idx === i ? (val ?? "") : s)));
+    setResult(null);
   };
 
-  const ready = selected.every(s => s !== "");
+  const removeTrack = (id: string) => {
+    setSelected(prev => prev.map(s => (s === id ? "" : s)));
+    setResult(null);
+  };
 
   const run = async () => {
+    if (selectedTracks.length !== 5) return;
     setLoading(true);
     setError("");
     setResult(null);
     try {
-      const r = await api.defense(selected);
+      // Send the 5 non-empty slot IDs in slot order
+      const ids = selected.filter(id => id !== "");
+      const r = await api.defense(ids);
       setResult(r);
     } catch (e) {
       setError(String(e));
@@ -68,39 +76,102 @@ export default function DefensePage() {
         <CardHeader>
           <CardTitle className="text-base">Select 5 Tracks</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-3">
+        <CardContent className="space-y-4">
           {fetching ? (
             [...Array(5)].map((_, i) => <Skeleton key={i} className="h-9 w-full" />)
           ) : (
             <>
-              {[...Array(SLOTS)].map((_, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <span className="w-6 text-center text-sm text-muted-foreground font-medium">
-                    {i + 1}
-                  </span>
-                  <Select value={selected[i]} onValueChange={v => setSlot(i, v)}>
-                    <SelectTrigger className="flex-1">
-                      <SelectValue placeholder={`Track ${i + 1}…`} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {[...tracks].sort((a, b) => a.display_name.localeCompare(b.display_name)).map(t => (
-                        <SelectItem key={t.id} value={t.id}>
-                          {t.display_name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              ))}
+              {/* Chip strip */}
+              <div className={`flex flex-wrap gap-2 p-3 rounded-lg border transition-colors ${
+                selectedTracks.length === 5
+                  ? "border-emerald-700/50 bg-emerald-950/20"
+                  : selectedTracks.length > 0
+                    ? "border-zinc-800 bg-zinc-900/50"
+                    : "border-transparent"
+              }`}>
+                {selectedTracks.length === 0 && (
+                  <span className="text-sm text-zinc-500">Pick 5 tracks below to optimize a defense lineup.</span>
+                )}
+                {selectedTracks.map(t => (
+                  <button
+                    key={t.id}
+                    onClick={() => removeTrack(t.id)}
+                    className="group flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 transition-colors"
+                  >
+                    <span className="text-sm text-zinc-100">{t.display_name}</span>
+                    <X className="w-3.5 h-3.5 text-zinc-500 group-hover:text-zinc-100" />
+                  </button>
+                ))}
+              </div>
 
+              {/* 5 slot selects */}
+              <div className="space-y-2">
+                {[...Array(SLOTS)].map((_, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <span className="w-6 text-center text-sm text-muted-foreground font-medium shrink-0">
+                      {i + 1}
+                    </span>
+                    <Select value={selected[i]} onValueChange={v => setSlot(i, v)}>
+                      <SelectTrigger className="flex-1">
+                        <SelectValue placeholder={`Track ${i + 1}…`} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {sortedTracks.map(t => (
+                          <SelectItem key={t.id} value={t.id}>
+                            {t.display_name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                ))}
+              </div>
+
+              {/* Count-aware Optimize button */}
               <Button
-                className="w-full mt-2"
-                disabled={!ready || loading}
                 onClick={run}
+                disabled={selectedTracks.length !== 5 || loading}
+                className="w-full"
               >
                 <Shield className="h-4 w-4 mr-2" />
-                {loading ? "Optimizing…" : "Optimize Lineup"}
+                {loading
+                  ? "Optimizing…"
+                  : selectedTracks.length === 5
+                    ? "Optimize Lineup"
+                    : <>Pick <span className="font-mono mx-1">{5 - selectedTracks.length}</span> more</>
+                }
               </Button>
+
+              {/* Inline chip-pair results */}
+              {result && (
+                <div className="space-y-2 mt-2 pt-6 border-t border-zinc-800">
+                  <h3 className="text-sm text-zinc-400 mb-3">Optimal lineup</h3>
+                  {result.assignments.map(a => (
+                    <div key={a.track_id} className="flex items-center gap-3">
+                      <div className="flex-1 px-3 py-1.5 rounded-full bg-zinc-800 border border-zinc-700 min-w-0">
+                        <span className="text-sm text-zinc-100 truncate block">{a.track_display_name}</span>
+                      </div>
+                      <span className="text-zinc-600 shrink-0">→</span>
+                      <div className="flex-1 px-3 py-1.5 rounded-full bg-zinc-800 border border-emerald-700/50 min-w-0">
+                        <span className="text-sm text-zinc-100">{a.car_display_name}</span>
+                        <span className="font-mono text-xs text-zinc-500 ml-2 tabular-nums">
+                          {a.predicted_time.toFixed(3)}s
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                  {result.warnings.length > 0 && (
+                    <div className="space-y-1 pt-2">
+                      {result.warnings.map(w => (
+                        <div key={w} className="flex gap-2 text-xs text-yellow-400">
+                          <AlertTriangle className="h-3 w-3 mt-0.5 shrink-0" />
+                          {w} has LOW confidence (&lt; 3 samples)
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
             </>
           )}
         </CardContent>
@@ -111,54 +182,6 @@ export default function DefensePage() {
           <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5" />
           {error}
         </div>
-      )}
-
-      {result && (
-        <Card>
-          <CardHeader className="pb-3">
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-base">Optimal Lineup</CardTitle>
-              <div className="flex items-center gap-1.5 text-sm">
-                <Clock className="h-4 w-4 text-muted-foreground" />
-                <span className="font-mono font-bold">{result.total_time.toFixed(3)}s</span>
-                <span className="text-muted-foreground">total</span>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-0 p-0">
-            {result.assignments.map((a, i) => (
-              <div key={a.track_id}>
-                {i > 0 && <Separator />}
-                <div className="px-6 py-4 flex items-start justify-between gap-4">
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs text-muted-foreground truncate">{a.track_name}</p>
-                    <p className="font-semibold mt-0.5">{a.car_name}</p>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <p className="font-mono font-bold">{a.predicted_time.toFixed(3)}s</p>
-                    <p className="text-xs text-muted-foreground">± {a.ci.toFixed(3)}s</p>
-                    <span className={`text-xs font-semibold ${CONFIDENCE_COLOR[a.confidence]}`}>
-                      {a.confidence}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </CardContent>
-          {result.warnings.length > 0 && (
-            <div className="px-6 pb-4">
-              <Separator className="mb-3" />
-              <div className="space-y-1">
-                {result.warnings.map(w => (
-                  <div key={w} className="flex gap-2 text-xs text-yellow-400">
-                    <AlertTriangle className="h-3 w-3 mt-0.5 shrink-0" />
-                    {w} has LOW confidence (&lt; 3 samples)
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </Card>
       )}
     </div>
   );

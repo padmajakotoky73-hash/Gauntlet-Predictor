@@ -69,8 +69,10 @@ export interface PredictResult {
 export interface DefenseAssignment {
   track_id: string;
   track_name: string;
+  track_display_name: string;
   car_id: string;
   car_name: string;
+  car_display_name: string;
   predicted_time: number;
   ci: number;
   confidence: "LOW" | "MEDIUM" | "HIGH";
