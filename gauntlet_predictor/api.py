@@ -279,6 +279,14 @@ def log_run(data: LogInput):
 @app.get("/calibration-status")
 def calibration_status():
     tracks = load_tracks()
+    logs = load_race_logs()
+
+    # Build a map: track_id -> most recent log timestamp
+    last_log: dict[str, str] = {}
+    for log in logs:
+        if log.track_id not in last_log or log.timestamp > last_log[log.track_id]:
+            last_log[log.track_id] = log.timestamp
+
     result = []
     for t in tracks:
         if t.sample_count < 3:
@@ -291,7 +299,9 @@ def calibration_status():
             "id": t.id,
             "display_name": t.display_name,
             "sample_count": t.sample_count,
+            "run_count": t.sample_count,
             "confidence": confidence,
+            "last_calibrated": last_log.get(t.id),
         })
     result.sort(key=lambda x: x["sample_count"])
     return result

@@ -103,7 +103,9 @@ export interface CalibrationStatus {
   id: string;
   display_name: string;
   sample_count: number;
+  run_count: number;
   confidence: "LOW" | "MEDIUM" | "HIGH";
+  last_calibrated: string | null;
 }
 
 // ── Helpers ────────────────────────────────────────────────────────────────
